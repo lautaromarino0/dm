@@ -1,0 +1,47 @@
+import { elimnarVehiculo } from "../../api/vehiculoService"
+import { VehiculoMostrar } from "../../interfaces/vehiculo.interface"
+
+interface Props {
+    vehiculo : VehiculoMostrar
+}
+
+function VehiculoItem({ vehiculo } : Props) {
+
+    const el = () => {
+        if(!window.confirm('¿Estás seguro de eliminar el vehiculo?')) return
+        elimnarVehiculo(vehiculo.id_vehiculo)
+        .then(() => {
+            alert('Vehiculo eliminado')
+            window.location.reload()
+        })
+        .catch(err => console.error(err))
+    }
+
+    const actualizar = () => {
+        window.location.href = `/vehiculos/${vehiculo.id_vehiculo}`
+    }
+
+  return (
+    <div key={vehiculo.patente} className="bg-gray-900 p-4 my-2 flex justify-between items-center hover:bg-gray-800 hover:cursor-pointer rounded-md">
+        <div>
+        <h2 className="text-lg font-bold">{vehiculo.id_modelo.nombre} de {vehiculo.id_cliente.nombre} {vehiculo.id_cliente.apellido}</h2>
+      </div>
+      <div className="flex gap-x-2">
+        <button
+          onClick={() => actualizar()}
+          className=" bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-blue-800"
+        >
+          Actualizar
+        </button>
+        <button
+          onClick={() => el()}
+          className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-800"
+        >
+          Eliminar
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default VehiculoItem
