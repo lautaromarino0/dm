@@ -5,24 +5,26 @@ import { hash, compare } from 'bcrypt';
 import { LoginDto } from 'src/user/dto/login.dto';
 import { RegisterDto } from 'src/user/dto/register.dto';
 import { User } from 'src/user/entities/user.entity';
+import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class AuthService {
 
   constructor(@InjectRepository(User) private userRepository : Repository<User>,
-  private jwtService: JwtService
+  private jwtService: JwtService,
+  private readonly userService: UserService
   ) {}
 
   async register(user: RegisterDto){
     const { password } = user;
     const plainToHash = await hash(password, 10);
     user = { ...user, password: plainToHash };
-    return this.userRepository.save(user);
+    return this.userService.register(user);
   }
   async login(user: LoginDto){
     const {email, password} = user;
-    const findUser = await this.userRepository.findOne({where: {email: email}});
+    const findUser = await this.userService.findOne(email);
     if(!findUser){
       throw new HttpException('User not found', 404);
     }

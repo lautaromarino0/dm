@@ -18,9 +18,9 @@ function EmpleadoForm() {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const res = await createEmpleado(empleado)
+        alert('Empleado Registrado')
         const data = await res.json()
         console.log(data)
-        alert('Empleado Registrado')
         window.location.reload()
     }
 

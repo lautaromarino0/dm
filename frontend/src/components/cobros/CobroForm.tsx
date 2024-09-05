@@ -62,7 +62,7 @@ function CobroForm() {
     .then(() => {
       alert('Entrega del Trabajo Registrada')
       // Verificar si el trabajo ha sido completamente cobrado
-      if (cobroPreparado.monto + trabajo.totalEntregado > trabajo.total) {
+      if (cobroPreparado.monto + trabajo.totalEntregado >= trabajo.total) {
         alert('Trabajo Completamente Cobrado')
         window.location.href = `/trabajos/${trabajo.id_trabajo}`
       } else {

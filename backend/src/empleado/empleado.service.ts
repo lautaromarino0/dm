@@ -10,25 +10,25 @@ export class EmpleadoService {
 
   constructor(@InjectRepository(Empleado) private empleadoRepository:Repository<Empleado>){}
 
-  create(createEmpleadoDto: CreateEmpleadoDto) {
+  async create(createEmpleadoDto: CreateEmpleadoDto) {
     return this.empleadoRepository.save(createEmpleadoDto);
   }
 
-  findAll() {
+  async findAll() {
     return this.empleadoRepository.find();
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
     return this.empleadoRepository.findOne({
       where: {id_empleado: id}, relations: ['trabajos', 'pagos']
     });
   }
 
-  update(id: number, updateEmpleadoDto: UpdateEmpleadoDto) {
+  async update(id: number, updateEmpleadoDto: UpdateEmpleadoDto) {
     return this.empleadoRepository.update(id, updateEmpleadoDto);
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return this.empleadoRepository.delete(id);
   }
 }

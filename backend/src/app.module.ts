@@ -15,9 +15,12 @@ import { ChequeModule } from './cheque/cheque.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DetalleTrabajoModule } from './detalle-trabajo/detalle-trabajo.module';
 import { AuthModule } from './auth/auth.module';
+import { RolModule } from './rol/rol.module';
+import { UserModule } from './user/user.module';
+import { EstadisticasModule } from './estadisticas/estadisticas.module';
 
 @Module({
-  imports: [ClienteModule, VehiculoModule, MarcaModule, ModeloModule, EstadoModule, TrabajoModule, PagoModule, EmpleadoModule, TareaModule, CobroModule, ChequeModule, TypeOrmModule.forRoot(
+  imports: [ClienteModule, VehiculoModule, MarcaModule, ModeloModule, EstadoModule, TrabajoModule, PagoModule, EmpleadoModule, TareaModule, CobroModule, ChequeModule,UserModule, TypeOrmModule.forRoot(
     {
       type: 'postgres',
       host: 'localhost',
@@ -28,7 +31,7 @@ import { AuthModule } from './auth/auth.module';
       entities: ["dist/**/*.entity{.ts,.js}"],
       synchronize: true,
     }
-  ), DetalleTrabajoModule, AuthModule],
+  ), DetalleTrabajoModule, AuthModule, RolModule, EstadisticasModule],
   controllers: [AppController],
   providers: [AppService],
 })

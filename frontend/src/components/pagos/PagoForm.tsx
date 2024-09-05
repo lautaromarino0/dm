@@ -7,7 +7,7 @@ import { createPago } from "../../api/pagoService";
 function PagoForm() {
   const {id} = useParams<{id: string}>();
   const [monto, setMonto] = useState(0);
-  const [trabajos, setTrabajos] = useState([{id_trabajo: 0, id_vehiculo: {id_modelo: {nombre: ''}}, id_estado: {nombre: ''},total:0}]);
+  const [trabajos, setTrabajos] = useState([{id_trabajo: 0, id_vehiculo: {id_modelo: {nombre: ''}}, id_estado: {nombre: ''},total:0, detalles:[{id_detalle:0,precioManoObra:0,precioRepuestos:0}]}]);
   const [trabajosSeleccionados, setTrabajosSeleccionados] = useState<number[]>([]);
   useEffect(() => {
     if (id === undefined) {
@@ -22,7 +22,12 @@ function PagoForm() {
     const montoTotal = trabajosSeleccionados.reduce((total: number, id) => {
       const trabajo = trabajos.find(trabajo => trabajo.id_trabajo === id);
       if (trabajo) { // Verifica si trabajo no es undefined
-        return total + trabajo.total;
+        console.log(trabajo);
+        let total = 0;
+        trabajo.detalles.forEach(detalle => {
+          total += detalle.precioManoObra * 0.3;
+        });
+        return total;
       } else {
         return total;
       }

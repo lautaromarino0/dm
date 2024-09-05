@@ -1,4 +1,5 @@
-import { IsEmail, IsString } from "class-validator";
+import { IsEmail, IsNumber, IsString } from "class-validator";
+import { Rol } from "src/rol/entities/rol.entity";
 
 export class RegisterDto {
     @IsString()
@@ -7,4 +8,6 @@ export class RegisterDto {
     password: string;
     @IsEmail()
     email: string;
+    @IsNumber()
+    rol: Rol;
 }
