@@ -60,7 +60,9 @@ export class TrabajoService {
   }
 
   findAll() {
-    return this.trabajoRepository.find({relations: ['id_empleado', 'id_vehiculo', 'detalles','detalles.id_tarea', 'id_estado', 'id_vehiculo.id_modelo' , 'id_vehiculo.id_cliente']})
+    return this.trabajoRepository.find({ order: {
+      fechaIngreso: 'DESC' // Ordenar por la columna fechaCreacion en orden descendente
+    },relations: ['id_empleado', 'id_vehiculo', 'detalles','detalles.id_tarea', 'id_estado', 'id_vehiculo.id_modelo' , 'id_vehiculo.id_cliente']})
   }
 
   findOne(id: number) {

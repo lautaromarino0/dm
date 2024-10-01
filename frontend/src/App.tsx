@@ -33,7 +33,7 @@ function App() {
       <div>
         {token && <Navbar />}
       </div>
-      <div className="h-full pt-32">
+      <div className="h-full pt-4">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/clientes" element={<AuthGuard><ClientesPage /></AuthGuard>} />

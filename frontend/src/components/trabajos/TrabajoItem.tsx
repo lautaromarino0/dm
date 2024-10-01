@@ -1,5 +1,6 @@
 import { deleteTrabajo } from "../../api/trabajoService"
 import { TrabajoMostrar } from "../../interfaces/trabajo.interface"
+import {toast, Toaster} from "react-hot-toast"
 
 
 interface Props {
@@ -15,8 +16,10 @@ function TrabajoItem({trabajo}: Props) {
         if(!window.confirm('¿Estás seguro de eliminar el trabajo?')) return
         deleteTrabajo(trabajo.id_trabajo)
         .then(() => {
-            alert('Trabajo eliminado')
-            window.location.reload()
+            toast.success('Trabajo eliminado')
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
         })
         .catch(err => console.error(err))
     }
@@ -24,6 +27,7 @@ function TrabajoItem({trabajo}: Props) {
   return (
     <div key={trabajo.id_trabajo} className="bg-gray-900 p-4 my-2 flex justify-between items-center hover:bg-gray-800 hover:cursor-pointer rounded-md">
       <div>
+        <Toaster/>
         <h2 className="text-lg font-bold">{trabajo.id_vehiculo.id_modelo.nombre + ' de ' + trabajo.id_vehiculo.id_cliente.nombre}</h2>
         <p className={`${trabajo.id_estado.nombre === 'Pendiente' ? 'text-red-600' : 'text-green-600'}`}>Estado: {trabajo.id_estado.nombre}</p>
       </div>

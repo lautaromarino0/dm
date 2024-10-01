@@ -29,3 +29,5 @@ export const actualizarVehiculo = (id: number, vehiculo: VehiculoDto) =>
         },
         body: JSON.stringify(vehiculo)
     })
+
+export const obtenerHistorialTrabajos = (id: number) => fetch(`${API}/${id}/historial`)

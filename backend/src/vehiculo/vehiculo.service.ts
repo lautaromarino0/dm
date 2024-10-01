@@ -20,8 +20,8 @@ export class VehiculoService {
     });
   }
 
-  findOne(id: number) {
-    return this.vehiculoRepository.findOne({
+  async findOne(id: number) {
+    return await this.vehiculoRepository.findOne({
       where: {id_vehiculo: id},
       relations: ['id_modelo', 'id_cliente', 'trabajos']
     });
@@ -33,5 +33,12 @@ export class VehiculoService {
 
   remove(id: number) {
     return this.vehiculoRepository.delete(id);
+  }
+
+  async getHistorialTrabajos(id: number) {
+    return await this.vehiculoRepository.findOne({
+      where: {id_vehiculo: id},
+      relations: ['trabajos','trabajos.detalles','trabajos.detalles.id_tarea','trabajos.id_estado']
+    });
   }
 }

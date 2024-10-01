@@ -14,9 +14,11 @@ function ChequeList() {
     )
   return (
     <div className="space-y-2">
+      <div className="h-96 overflow-y-auto">
         {cheques.map(cheque => (
-            <ChequeItem key={cheque.id_cheque} cheque={cheque} />
-        ))}
+              <ChequeItem key={cheque.id_cheque} cheque={cheque} />
+          ))}
+      </div>
     </div>
   )
 }

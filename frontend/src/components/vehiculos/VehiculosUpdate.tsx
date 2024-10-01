@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { actualizarVehiculo, obtenerVehiculo } from "../../api/vehiculoService";
+import VehiculoHistorial from "./VehiculoHistorial";
 
 function VehiculosUpdate() {
 
@@ -10,12 +11,13 @@ function VehiculosUpdate() {
     const [vehiculo, setVehiculo] = useState({
         año: 0,
         patente: '',
+        fechaIngreso: ''
       });
 
       useEffect(() => {
         obtenerVehiculo(Number(id)).then(res => res.json()).then(data => {
-            const { año, patente } = data; // Desestructuración para obtener solo año y patente
-            setVehiculo({ año, patente }); // Setear solo año y patente
+            const { año, patente, fechaIngreso } = data; // Desestructuración para obtener solo año y patente
+            setVehiculo({ año, patente, fechaIngreso }); // Setear solo año y patente
         })
     }, [id])
 
@@ -43,6 +45,9 @@ function VehiculosUpdate() {
       <div className="w-3/4 md:w-1/2 lg:w-1/3 bg-gray-950 shadow-md rounded-md p-6 text-white mt-4">
         <h2 className="text-2xl font-bold mb-4 text-center">Actualizar Vehiculo</h2>
         <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+            <label className="block text-white">Fecha Ingreso: {vehiculo.fechaIngreso.toString().substring(0,10)}</label>
+          </div>
           <div className="mb-4">
             <label className="block text-white">Año:</label>
             <input
@@ -72,6 +77,7 @@ function VehiculosUpdate() {
             Actualizar
           </button>
         </form>
+        <VehiculoHistorial />
       </div>
     </div>
   );

@@ -31,7 +31,7 @@ function VehiculoItem({ vehiculo } : Props) {
           onClick={() => actualizar()}
           className=" bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-blue-800"
         >
-          Actualizar
+          Detalles
         </button>
         <button
           onClick={() => el()}

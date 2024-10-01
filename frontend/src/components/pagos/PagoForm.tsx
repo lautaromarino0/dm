@@ -20,7 +20,7 @@ function PagoForm() {
 
   useEffect(() => {
     const montoTotal = trabajosSeleccionados.reduce((total: number, id) => {
-      const trabajo = trabajos.find(trabajo => trabajo.id_trabajo === id);
+      const trabajo =    trabajos.find(trabajo => trabajo.id_trabajo === id);
       if (trabajo) { // Verifica si trabajo no es undefined
         console.log(trabajo);
         let total = 0;
@@ -56,8 +56,8 @@ function PagoForm() {
       return;
     }
     console.log(monto, id, trabajosSeleccionados);
-    const res = createPago({monto: monto, id_empleado: Number(id), trabajos: trabajosSeleccionados});
-    const data = await res;
+    const res = await createPago({monto: monto, id_empleado: Number(id), trabajos: trabajosSeleccionados});
+    const data = res;
     console.log(data);
     alert('Pago Registrado');
     window.location.reload();

@@ -31,4 +31,9 @@ export class VehiculoController {
   remove(@Param('id') id: string) {
     return this.vehiculoService.remove(+id);
   }
+
+  @Get(':id/historial')
+  getHistorialTrabajos(@Param('id') id: string) {
+    return this.vehiculoService.getHistorialTrabajos(+id);
+  }
 }

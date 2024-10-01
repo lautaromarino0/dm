@@ -3,6 +3,7 @@ import { listarVehiculos } from "../../api/vehiculoService";
 import { listarTareas } from "../../api/tareaService";
 import { getEmpleados } from "../../api/empleadoService";
 import { createTrabajo } from "../../api/trabajoService";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 function TrabajoForm() {
@@ -49,8 +50,10 @@ function TrabajoForm() {
         console.log(trabajoPreparado);
         const res = await createTrabajo(trabajoPreparado);
         console.log(res);
-        alert('Orden de Trabajo Registrada');
-        window.location.reload();
+        toast.success('Orden de Trabajo Creada');
+        setTimeout(() => {
+            window.location.reload();
+          }, 2000);
     };
 
     const handleChange = (e: React.FormEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
@@ -85,6 +88,7 @@ function TrabajoForm() {
 
   return (
     <div>
+        <Toaster />
         <h2 className="text-center text-white text-2xl font-bold mb-4 ">Registrar Orden de Trabajo</h2>
         <form onSubmit={enviarFormulario}>
             <input type="text" name="kilometraje" className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2" placeholder="Kilometros" onChange={handleChange} />

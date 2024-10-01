@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 import { entregarTrabajo, getTrabajo } from "../../api/trabajoService";
 import { crearCobro } from "../../api/cobroService";
+import {toast, Toaster} from "react-hot-toast"
 
 
 function CobroForm() {
@@ -50,24 +51,28 @@ function CobroForm() {
     }
     console.log(cobroPreparado)
     if (cobroPreparado.monto <= 0) {
-      alert('El monto no puede ser 0')
+      toast.error('El monto debe ser mayor a 0')
       return
     }
     crearCobro(cobroPreparado)
     .then(() => {
-      alert('Cobro registrado')
+      toast.success('Cobro Registrado')
       // Ahora entregarTrabajo se llama aquí, asegurando que se ejecute después de crearCobro
       return entregarTrabajo(Number(trabajo.id_trabajo), cobroPreparado.monto)
     })
     .then(() => {
-      alert('Entrega del Trabajo Registrada')
+      toast.success('Entrega de Dinero Registrada')
       // Verificar si el trabajo ha sido completamente cobrado
       if (cobroPreparado.monto + trabajo.totalEntregado >= trabajo.total) {
-        alert('Trabajo Completamente Cobrado')
-        window.location.href = `/trabajos/${trabajo.id_trabajo}`
+        toast.success('Trabajo Completamente Cobrado')
+        setTimeout(() => {
+          window.location.href = '/trabajos'
+        }, 2000)
       } else {
         // Si no se ha cobrado completamente, simplemente recargar la página
-        window.location.reload()
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000)
       }
     })
     .catch(() => alert('Error al registrar cobro o al entregar trabajo'))
@@ -106,6 +111,7 @@ function CobroForm() {
   }
   return (
     <div className="bg-zinc-900 h-screen text-white flex items-center justify-center">
+      <Toaster/>
         <div className="bg-gray-950 p-4 w-2/5 rounded-md">
             <h2 className="text-center text-white text-2xl font-bold mb-4 ">Registrar Cobro</h2>
             <p className="text-white text-xl text-center">Total Trabajo: {trabajo.total}</p>

@@ -31,7 +31,7 @@ export class CobroService {
   }
   
   findAll() {
-    return this.cobroRepository.find({relations: ['cheques']});
+    return this.cobroRepository.find({relations: ['cheques'], order: {fechaCobro: 'DESC'}});
   }
 
   findOne(id: number) {

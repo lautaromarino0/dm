@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { completarTrabajo, getTrabajo, updateTrabajo } from "../../api/trabajoService";
 import { listarTareas } from "../../api/tareaService";
 import { getEmpleados } from "../../api/empleadoService";
+import { toast,Toaster } from "react-hot-toast";
 
 
 function TrabajoUpdate() {
@@ -64,8 +65,10 @@ function TrabajoUpdate() {
         console.log(trabajoPreparado);
         updateTrabajo(Number(id), trabajoPreparado)
         .then(() => {
-            alert('Trabajo actualizado');
-            navigate('/trabajos');
+            toast.success('Trabajo Actualizado');
+            setTimeout(() => {
+                navigate('/trabajos');
+              }, 2000);
         })
         .catch((err) => console.error(err));
     }
@@ -111,8 +114,11 @@ function TrabajoUpdate() {
         if(!window.confirm('¿Estás seguro de completar el trabajo?')) return
         completarTrabajo(Number(id))
         .then(() => {
-            alert('Trabajo completado')
-            window.location.reload()
+            toast.success('Trabajo completado')
+            setTimeout(() => {
+                window.location.reload();
+              }
+            , 2000);
         })
         .catch(err => console.error(err))
     }
@@ -131,6 +137,7 @@ function TrabajoUpdate() {
 
   return (
     <div className="w-screen h-screen bg-gray-900 flex flex-col items-center justify-start pt-10">
+        <Toaster/>
     <div className="w-3/4 md:w-1/2 lg:w-3/4 bg-gray-950 shadow-md rounded-md p-6 text-white mt-4">
     <form onSubmit={handleSubmit}>
         <div className="">

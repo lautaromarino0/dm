@@ -23,7 +23,7 @@ function LoginPage() {
     }
 
   return (
-    <div className="bg-zinc-900 h-screen text-white flex flex-col items-center justify-start pt-10">
+    <div className="bg-zinc-900 min-h-screen text-white flex flex-col items-center justify-start pt-10">
         <div className="bg-gray-950 p-8 w-1/3 rounded-md shadow-lg flex flex-col items-center">
           <h1 className="text-4xl font-bold mb-5">Iniciar Sesión</h1>
           <form onSubmit={handleSubmit}>
